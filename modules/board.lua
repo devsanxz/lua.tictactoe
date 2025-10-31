@@ -11,6 +11,17 @@ function Board.new()
 	return self
 end
 
+function Board:printSelf()
+	local printMe = ""
+	for i = 1, 9, 1 do
+		printMe = printMe .. "[" .. self.box[i]:getLabel() .. "]"
+		if i % 3 == 0 then
+			print(printMe)
+			printMe = ""
+		end
+	end
+end
+
 function Board:getState()
 	local state = ""
 	for i = 1, 9, 1 do
@@ -40,7 +51,7 @@ function Board:setupSelf()
 end
 
 function Board:show()
-	self:printState()
+	self:printSelf()
 end
 
 function Board:test()
@@ -49,6 +60,7 @@ function Board:test()
 	self:play("X", 1)
 	self:play("O", 3)
 	self:show()
+	self:printSelf()
 	print("End of the test.")
 end
 
