@@ -18,12 +18,15 @@ end
 function Player:makeInput(kind)
 	local input = {}
 	input = {
-		function human()
-			print("It's your turn. Type your move, single digit 1~9 or line column pair, each 1~3. Then <ENTER>")
-			io.read("n")
+		["human"] = function()
+			return {
+				io.read("n")
+			}
 		end,
-		function cpu()
-			
+		["CPU"] = function cpu()
+			return {
+				math.random(1, 9)
+			}
 		end,
 	}
 	
