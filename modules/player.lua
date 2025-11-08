@@ -20,16 +20,14 @@ function Player:makeInput(kind)
 	input = {
 		["human"] = function()
 			return {
-				io.read("n")
+				io.read("n"),
 			}
 		end,
-		["CPU"] = function cpu()
+		["CPU"] = function()
 			return {
-				math.random(1, 9)
+				math.random(1, 9),
 			}
 		end,
 	}
-	
-	end
 	return input[kind]
 end
