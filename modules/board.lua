@@ -1,4 +1,5 @@
 local Slot = require("modules.slot")
+local C = require("modules.constants")
 local Board = {}
 Board.__index = Board
 
@@ -29,7 +30,6 @@ function Board:showEachSlot()
 end
 
 function Board:show()
-	-- TODO:CONTINUE FROM HERE:
 	local line = ""
 	for i = 1, 9 do
 		line = line .. "[" .. self.slots[i]:get() .. "]"
@@ -38,6 +38,28 @@ function Board:show()
 			line = ""
 		end
 	end
+end
+
+function Board:play(what, where)
+	if where < 1 or where > 9 then
+		print("ERROR: where should be 1 to 9")
+	else
+		if self.slots[where]:isEmpty() then
+			if what == C.X then
+				self.slots[where]:setX()
+			elseif what == C.O then
+				self.slots[where]:setO()
+			else
+				print("ERROR: what is neither X or O")
+			end
+		else
+			print("You should play an empty slot")
+		end
+	end
+end
+
+function Board:reset()
+	self:build()
 end
 
 function Board:test()

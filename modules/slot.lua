@@ -17,7 +17,13 @@ end
 function Slot:get()
 	return self.value
 end
-
+function Slot:isEmpty()
+	local answer = false
+	if self.value == C.VOID then
+		answer = true
+	end
+	return answer
+end
 function Slot:setX()
 	self.value = C.X
 end
