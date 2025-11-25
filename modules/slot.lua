@@ -14,20 +14,29 @@ function Slot:build()
 	self.value = C.VOID
 end
 
-function Slot:getX()
+function Slot:get()
+	return self.value
+end
+
+function Slot:setX()
 	self.value = C.X
 end
 
-function Slot:getO()
+function Slot:setO()
 	self.value = C.O
 end
 
-function Slot:getVoid()
+function Slot:setVoid()
 	self.value = C.VOID
 end
 
 function Slot:showValue()
-	return self.value
+	local answer = self.value
+	return answer
+end
+
+function Slot:show()
+	self:showValue()
 end
 
 function Slot:test()
@@ -35,13 +44,13 @@ function Slot:test()
 		print(self.value)
 		print("Slot:build() test OK")
 	end
-	self:getO()
+	self:setO()
 	if self.value == C.O then
-		print("Slot:getO test OK")
+		print("Slot:setO test OK")
 	end
-	self:getX()
+	self:setX()
 	if self.value == C.X then
-		print("Slot:getX test OK")
+		print("Slot:setX test OK")
 	end
 	print(self.value)
 	print("Slot:Test OK")

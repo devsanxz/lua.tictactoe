@@ -1,6 +1,6 @@
 local C = {}
 
-C.VOID = "V"
+C.VOID = "_"
 C.X = "X"
 C.O = "O"
 
