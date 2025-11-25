@@ -60,6 +60,7 @@ function Slot:test()
 	end
 	print(self.value)
 	print("Slot:Test OK")
+	self:setVoid()
 end
 
 return Slot
