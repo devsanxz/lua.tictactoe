@@ -1,3 +1,4 @@
+local func = require("vim.func")
 local Human = {}
 Human.__index = Human
 function Human.new()
@@ -9,6 +10,10 @@ end
 
 function Human:build()
 	-- TODO: kinda obvious, getting tired
+end
+
+function Human:askSide(side)
+	-- TODO:
 end
 
 return Human
