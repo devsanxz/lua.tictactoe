@@ -22,6 +22,10 @@ local WIN_LINES = {
     {1, 5, 9}, {3, 5, 7}             -- Diagonais
 }
 
+-- === ESTADO DO JOGO (Declaração externa para o Oráculo ver) ===
+local movesP1 = {} 
+local movesP2 = {} 
+
 -- === O ORÁCULO (View Logic) ===
 -- Centraliza a tradução de "Dados" para "Visual"
 local function getCellLabel(i)
@@ -52,43 +56,56 @@ local function drawBoard()
     print(string.format(" %s | %s | %s \n", getCellLabel(7), getCellLabel(8), getCellLabel(9)))
 end
 
--- === A LÓGICA ===
 local function isValid(pos)
-    -- É válido se estiver no range E ninguém tiver jogado lá
     return pos >= 1 and pos <= 9 and (not movesP1[pos]) and (not movesP2[pos])
 end
 
--- === O LOOP ===
-while not winner and turns < 9 do
-    drawBoard()
-    
-    local currentLabel = isP1Turn and "Player 1 (X)" or "Player 2 (O)"
-    print("Vez de: " .. currentLabel)
-    io.write("Escolha: ")
-    
-    local pos = tonumber(io.read())
+-- === LOOP DA SESSÃO (Replay) ===
+while true do
+    -- Reset do Estado
+    for i=1, 9 do movesP1[i] = false; movesP2[i] = false end
+    local isP1Turn = true
+    local winner = nil
+    local turns = 0
 
-    if pos and isValid(pos) then
-        -- Atualiza apenas o booleano do jogador atual
-        if isP1Turn then
-            movesP1[pos] = true
-            if checkVictory(movesP1) then winner = "Player 1 (X)" end
-        else
-            movesP2[pos] = true
-            if checkVictory(movesP2) then winner = "Player 2 (O)" end
-        end
+    -- === LOOP DA PARTIDA ===
+    while not winner and turns < 9 do
+        drawBoard()
         
-        turns = turns + 1
-        isP1Turn = not isP1Turn 
-    else
-        print(">>> Jogada Inválida! <<<")
-        os.execute("sleep 1")
-    end
-end
+        local currentLabel = isP1Turn and "Player 1 (X)" or "Player 2 (O)"
+        print("Vez de: " .. currentLabel)
+        io.write("Escolha: ")
+        
+        local pos = tonumber(io.read())
 
-drawBoard()
-if winner then
-    print("\n*** TEMOS UM VENCEDOR: " .. winner .. " ***\n")
-else
-    print("\n--- DEU VELHA (DRAW) ---\n")
+        if pos and isValid(pos) then
+            if isP1Turn then
+                movesP1[pos] = true
+                if checkVictory(movesP1) then winner = "Player 1 (X)" end
+            else
+                movesP2[pos] = true
+                if checkVictory(movesP2) then winner = "Player 2 (O)" end
+            end
+            
+            turns = turns + 1
+            isP1Turn = not isP1Turn 
+        else
+            print(">>> Jogada Inválida! <<<")
+            os.execute("sleep 1")
+        end
+    end
+
+    drawBoard()
+    if winner then
+        print("\n*** TEMOS UM VENCEDOR: " .. winner .. " ***\n")
+    else
+        print("\n--- DEU VELHA (DRAW) ---\n")
+    end
+    
+    io.write("Jogar novamente? (s/n): ")
+    local resp = io.read()
+    if resp ~= "s" and resp ~= "S" then
+        print("Até a próxima!")
+        break
+    end
 end
