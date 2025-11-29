@@ -1,2 +1,2 @@
 local G = require("modules.grid")
-print(G[2][1])
+print(G[3][3])

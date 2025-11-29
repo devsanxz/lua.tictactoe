@@ -1,0 +1,15 @@
+# Gemini context file
+GEMINI.md
+
+# Editor's temp files
+*.swp
+*.swo
+
+# Default Thumbfiles
+.DS_Store
+Thumbs.db
+
+#lua_modules/
+
+# Log files
+*.log
