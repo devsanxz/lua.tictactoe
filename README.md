@@ -1,36 +1,31 @@
-# Tic-Tac-Toe (Lua) - MVP Reboot
+# Lua Tic-Tac-Toe (MVP)
 
-Este branch (`geminiandi`) representa uma refatoração completa focada em simplicidade e performance.
+Uma implementação focada em performance e simplicidade do clássico Jogo da Velha, escrita em Lua.
 
-## A História (Architecture Decision Record)
+## 🧠 Filosofia de Engenharia
 
-Originalmente, este projeto tentou implementar uma arquitetura OOP complexa (Classes, Judge, Game, Match, Round). Isso se provou um *Overengineering* desnecessário para o escopo do problema, dificultando a conclusão.
+Este projeto nasceu de uma refatoração radical (`v5.0.0`). A versão original tentava implementar uma arquitetura OOP complexa (Classes, Judges, Rounds) que se provou desnecessária (Overengineering).
 
-Decidimos "resetar" o projeto (`v5.0.0`) adotando uma abordagem **Data-Oriented** e **KISS**.
+Decidimos resetar e aplicar o princípio **KISS (Keep It Simple, Stupid)**.
 
-## Arquitetura Atual
+### Destaques Técnicos
+*   **Bitboards Lógicos:** O tabuleiro não é uma matriz de strings. São dois arrays booleanos (`movesP1`, `movesP2`) separados.
+*   **Validação O(1) Prática:** A verificação de vitória usa *Short-Circuiting* do Lua. Se a primeira casa de uma linha vitoriosa não tem a marca, o código aborta a verificação daquela linha instantaneamente (Fail Fast).
+*   **Zero Dependências:** Apenas Lua puro.
+*   **Single Source of Truth:** A função de renderização (`getCellLabel`) é a única que traduz o estado lógico (`true/false`) para visual ("X"/"O"). A lógica do jogo desconhece a "skin".
 
-Não existem classes. O estado do jogo é mantido em estruturas de dados primitivas otimizadas para lógica booleana.
+## 🚀 Como Rodar
 
-### Estrutura de Dados
-
-1.  **`movesP1` e `movesP2` (Arrays Booleanos):**
-    *   Em vez de um tabuleiro único com strings ("X", "O"), usamos dois arrays paralelos de booleanos.
-    *   Isso permite validações ultra-rápidas (Bitboard style).
-
-2.  **`WIN_LINES` (Constante de Regra):**
-    *   Define estaticamente as 8 combinações de vitória.
-    *   A verificação de vitória usa *Short-Circuiting* do Lua para parar imediatamente ao encontrar uma falha na linha, garantindo performance O(1) na prática.
-
-3.  **`getCellLabel` (View Logic):**
-    *   Atua como uma camada de tradução. O "Core" do jogo só vê `true/false`. Essa função traduz para "X" ou "O" apenas no momento de desenhar na tela.
-
-## Como Rodar
+Certifique-se de ter o Lua instalado.
 
 ```bash
 lua main.lua
 ```
 
-## Próximos Passos (Roadmap)
+## 🎮 Features
+*   **Input Numérico:** Mapeado de 1-9 (top-left a bottom-right).
+*   **Replay Loop:** Permite jogar múltiplas partidas na mesma sessão, com reset automático de estado.
+*   **Feedback Visual:** Tabuleiro desenhado em ASCII limpo.
 
-Este código serve como base sólida (MVP) para futuros experimentos, como implementação de IA (Minimax), já que a separação de estado (arrays booleanos) facilita muito a simulação de jogadas futuras.
+---
+*Desenvolvido por [Sanchez] com mentalidade SRE: Menos código, menos bugs.*
