@@ -1,15 +1,29 @@
-# Gemini context file
+# Gemini context
 GEMINI.md
+
+# Lua binaries
+*.o
+*.so
+
+# Luarocks
+lua_modules/
+.luarocks/
 
 # Editor's temp files
 *.swp
 *.swo
+.vscode/
+.idea/
+*.bak
 
-# Default Thumbfiles
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-#lua_modules/
-
-# Log files
+# Logs
 *.log
